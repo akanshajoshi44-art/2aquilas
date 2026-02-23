@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>2Aquilas | Exhibition Design & Build | Strategic Environments</title>
+
+<link rel="icon" type="image/png" href="/images/favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Inter',sans-serif;
+background:#ffffff;
+color:#0f172a;
+}
+
+/* FOOTER (UNCHANGED ANIMATION STRUCTURE) */
+
+.footer{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:100vh;
+background:#0f172a;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+padding:0 10%;
+z-index:0;
+}
+
+.footer h2{
+font-family:'Playfair Display',serif;
+font-size:64px;
+margin-bottom:20px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:80px;
+margin-top:70px;
+}
+
+.footer-column h3{
+margin-bottom:18px;
+font-weight:500;
+letter-spacing:.5px;
+}
+
+.footer-column a{
+display:block;
+margin:10px 0;
+color:#cbd5e1;
+text-decoration:none;
+transition:.3s;
+}
+
+.footer-column a:hover{
+color:white;
+transform:translateX(4px);
+}
+
+.footer-bottom{
+margin-top:90px;
+opacity:.7;
+font-size:14px;
+text-align:center;
+}
+
+/* MAIN SITE */
+
+.site{
+position:relative;
+z-index:2;
+background:white;
+margin-bottom:100vh;
+}
+
+/* NAV */
+
+.nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:22px 7%;
+background:rgba(255,255,255,.8);
+backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(0,0,0,.05);
+z-index:999;
+}
+
+.logo img{height:60px;}
+
+.nav-btn{
+padding:12px 26px;
+border-radius:40px;
+background:#0f172a;
+color:white;
+text-decoration:none;
+}
+
+/* HERO */
+
+.hero{
+height:110vh;
+display:flex;
+align-items:center;
+padding:0 7%;
+background:
+linear-gradient(rgba(255,255,255,.65),rgba(255,255,255,.9)),
+url('images/image_1.png');
+background-size:cover;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:84px; /* slightly reduced for better readability */
+line-height:1; /* more comfortable spacing */
+letter-spacing:-0.8px; /* less aggressive tightening */
+font-weight:700;
+max-width:900px; /* improves text balance */
+}
+
+
+.hero h1 br{
+line-height:1.05;
+}
+
+
+
+.hero h1 br{
+line-height:1.05;
+}
+
+
+.hero p{
+margin-top:28px;
+max-width:640px;
+font-size:21px;
+color:#334155;
+}
+
+/* AUTHORITY */
+
+.authority{
+display:flex;
+justify-content:space-around;
+padding:70px 7%;
+background:white;
+box-shadow:0 20px 60px rgba(0,0,0,.04);
+}
+
+/* STATEMENT */
+
+.statement{
+padding:110px 10% 70px 10%;
+text-align:center;
+font-family:'Playfair Display',serif;
+font-size:58px;
+background:#fbfaf7;
+position:relative;
+}
+
+.statement::after{
+content:"";
+display:block;
+width:80px;
+height:2px;
+background:#0f172a;
+margin:40px auto 0;
+opacity:0.2;
+}
+
+/* SERVICES */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:60px;
+padding:140px 7%;
+}
+
+.card{
+background:white;
+padding:70px;
+border-radius:30px;
+box-shadow:0 30px 90px rgba(0,0,0,.05);
+}
+
+/* PORTFOLIO */
+
+.portfolio{padding:160px 7%;}
+
+.project{
+position:relative;
+border-radius:32px;
+overflow:hidden;
+margin-bottom:100px;
+cursor:pointer;
+transition:transform .6s cubic-bezier(.16,1,.3,1),
+            box-shadow .6s cubic-bezier(.16,1,.3,1);
+}
+
+.project img{
+width:100%;
+height:auto;
+display:block;
+transition:transform 1.2s cubic-bezier(.16,1,.3,1),
+            filter 1s ease;
+}
+
+/* Hover Lift + Zoom */
+.project:hover{
+transform:translateY(-8px);
+box-shadow:0 30px 100px rgba(0,0,0,.18);
+}
+
+.project:hover img{
+transform:scale(1.06);
+filter:brightness(1.08);
+}
+
+.overlay{
+position:absolute;
+bottom:0;
+width:100%;
+padding:70px;
+background:linear-gradient(transparent,rgba(0,0,0,.85));
+color:white;
+transition:background .6s ease;
+}
+
+.project:hover .overlay{
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+}
+
+
+.title{
+font-family:'Playfair Display',serif;
+font-size:48px;
+}
+
+</style>
+
+<style>
+/* ===== POPUP (ISOLATED) ===== */
+.luxury-popup-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(10,15,25,.55);
+backdrop-filter:blur(10px);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+pointer-events:none;
+transition:.35s ease;
+z-index:99999;
+}
+
+.luxury-popup-overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+.luxury-popup-box{
+width:92%;
+max-width:950px;
+background:#fff;
+border-radius:20px;
+display:grid;
+grid-template-columns:1fr 1.1fr;
+overflow:hidden;
+box-shadow:0 60px 140px rgba(0,0,0,.25);
+}
+
+.luxury-left{
+background:#1e3a8a;
+color:white;
+padding:80px 60px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.luxury-left h2{
+font-size:40px;
+line-height:1.15;
+letter-spacing:-.5px;
+margin-bottom:28px;
+}
+
+.luxury-left p{
+max-width:420px;
+line-height:1.7;
+}
+
+.luxury-right{
+padding:60px;
+position:relative;
+}
+
+.luxury-close{
+position:absolute;
+top:20px;
+right:25px;
+font-size:26px;
+cursor:pointer;
+}
+
+.luxury-right input,
+.luxury-right select{
+width:100%;
+padding:16px;
+margin-bottom:16px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+}
+
+.luxury-submit{
+width:100%;
+padding:16px;
+border:none;
+border-radius:10px;
+background:#0f172a;
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+@media(max-width:900px){
+.luxury-popup-box{grid-template-columns:1fr;}
+.luxury-left{display:none;}
+}
+</style>
+
+  <link rel="stylesheet" href="mobile.css">
+</head>
+
+<body>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+<h2>Let’s Build Something Remarkable.</h2>
+<p>Your exhibition presence should command attention — not compete for it.</p>
+
+<div class="footer-grid">
+
+<div class="footer-column">
+<h3>About 2Aquilas</h3>
+<a>Execution-driven exhibition company</a>
+<a>7+ years combined expertise</a>
+<a>Pan-India project delivery</a>
+<a>Engineered build standards</a>
+</div>
+
+<div class="footer-column">
+<h3>Services</h3>
+<a>Custom stand Design</a>
+<a>Fabrication & Production</a>
+<a>Turnkey Exhibition Execution</a>
+<a>Modular stand Systems</a>
+<a>Brand & Graphic Integration</a>
+</div>
+
+<div class="footer-column">
+<h3>Contact</h3>
+<a>marketing@2aquilas.com</a>
+<a>+91 9911724568</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 2Aquilas Pvt. Ltd. All Rights Reserved.
+</div>
+
+</footer>
+
+<!-- MAIN WEBSITE -->
+
+<div class="site">
+
+<div class="nav">
+<div class="logo">
+<img src="images/logo.png" alt="2Aquilas Logo">
+</div>
+<a class="nav-btn" href="#" onclick="openLuxuryPopup();return false;">Request Consultation</a>
+</div>
+
+<section class="hero">
+<div>
+<h1>We Don’t Build Stands. We Build Brand Presence.</h1>
+
+<p>
+Execution-driven exhibition environments engineered with over a decade of combined industry expertise.
+</p>
+
+</div>
+</section>
+
+<section class="authority">
+<div>7+ Years Combined Expertise</div>
+<div>Pan-India Execution</div>
+<div>Engineered Fabrication</div>
+<div>Disciplined Timelines</div>
+</section>
+
+<section class="statement">
+Most exhibition stands get noticed.<br>
+The right ones get remembered.
+</section>
+
+<section class="grid">
+
+<div class="card">
+<h2>Strategic stand Design</h2>
+<p>Layouts engineered to attract footfall and maximize engagement.</p>
+</div>
+
+<div class="card">
+<h2>Precision Fabrication</h2>
+<p>Industrial-grade builds that communicate strength.</p>
+</div>
+
+<div class="card">
+<h2>Turnkey Execution</h2>
+<p>One partner. Total accountability.</p>
+</div>
+
+</section>
+
+<section class="portfolio">
+
+<div class="project">
+<img src="images/image_2.png" alt="Immersive Technology Pavilion">
+<div class="overlay">
+<div class="title">Immersive Technology Pavilion</div>
+</div>
+</div>
+
+<div class="project">
+<img src="images/Syncon_image.png" alt="Global Trade Fair Experience Center">
+<div class="overlay">
+<div class="title">Global Trade Fair Experience Center</div>
+</div>
+</div>
+
+</section>
+
+</div>
+
+
+<div id="luxuryPopup" class="luxury-popup-overlay">
+  <div class="luxury-popup-box">
+
+    <div class="luxury-left">
+      <h2>Create an Exhibition Presence That Commands Attention.</h2>
+      <p>Collaborate with a team that specializes in designing impactful exhibition environments — built to elevate your brand.</p>
+    </div>
+
+    <div class="luxury-right">
+      <span class="luxury-close" onclick="closeLuxuryPopup()">×</span>
+
+<form id="luxuryForm" action="https://formsubmit.co/marketing@2aquilas.com" method="POST">
+
+<input type="text" name="Company Name" placeholder="Company Name" required>
+<input type="text" name="Phone Number" placeholder="Phone Number" required>
+<input type="email" name="Email" placeholder="Email Address" required>
+
+<select id="projectSize" name="Project Size" required onchange="toggleCustomSize()">
+<option value="">Project Size</option>
+<option>12 – 24 sqm</option>
+<option>24 – 60 sqm</option>
+<option>60 – 120 sqm</option>
+<option>120+ sqm</option>
+<option value="custom">Custom</option>
+</select>
+
+<input type="text" id="customSize" name="Custom Size" placeholder="Enter Custom Size (e.g. 85 sqm)" style="display:none;">
+
+
+<input type="text" name="Exhibition Name" placeholder="Exhibition Name">
+<input type="text" name="Exhibition Location" placeholder="Exhibition Location">
+
+<input type="hidden" name="_subject" value="New 2Aquilas Exhibition Inquiry">
+<input type="hidden" name="_captcha" value="false">
+
+<button type="submit" class="luxury-submit">Discuss Your Project</button>
+
+</form>
+
+<div id="successMessage" style="
+display:none;
+margin-top:30px;
+padding:28px;
+border-radius:14px;
+background:linear-gradient(135deg,#0f172a,#1e3a8a);
+color:white;
+font-size:16px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.15);
+">
+✓ Your project details have been received.<br><br>
+Our team will contact you within 24 hours.<br><br>
+Closing in <span id="countdown">10</span> seconds...
+</div>
+
+
+<script>
+function openLuxuryPopup(){
+document.getElementById("luxuryPopup").classList.add("active");
+}
+
+function closeLuxuryPopup(){
+document.getElementById("luxuryPopup").classList.remove("active");
+}
+
+function toggleCustomSize(){
+var size = document.getElementById("projectSize").value;
+var custom = document.getElementById("customSize");
+
+if(size === "custom"){
+custom.style.display = "block";
+}else{
+custom.style.display = "none";
+}
+}
+
+</script>
+
+<script>
+document.getElementById("luxuryForm").addEventListener("submit", function(e) {
+e.preventDefault();
+
+const form = this;
+const successBox = document.getElementById("successMessage");
+
+fetch(form.action, {
+method: "POST",
+body: new FormData(form),
+headers: { 'Accept': 'application/json' }
+}).then(response => {
+
+form.style.opacity = "0";
+form.style.transform = "translateY(-20px)";
+form.style.transition = "all .4s ease";
+
+setTimeout(() => {
+
+form.style.display = "none";
+
+successBox.style.display = "block";
+successBox.style.opacity = "0";
+successBox.style.transform = "translateY(20px)";
+successBox.style.transition = "all .6s ease";
+
+setTimeout(() => {
+successBox.style.opacity = "1";
+successBox.style.transform = "translateY(0)";
+}, 100);
+
+// Countdown timer
+let timeLeft = 10;
+const countdownEl = document.getElementById("countdown");
+countdownEl.textContent = timeLeft;
+
+const timer = setInterval(() => {
+timeLeft--;
+countdownEl.textContent = timeLeft;
+
+if(timeLeft <= 0){
+clearInterval(timer);
+
+document.getElementById("luxuryPopup").classList.remove("active");
+
+form.reset();
+form.style.display = "block";
+form.style.opacity = "1";
+form.style.transform = "translateY(0)";
+successBox.style.display = "none";
+}
+}, 1000);
+
+}, 400);
+
+});
+});
+</script>
+
+<script>
+window.addEventListener("scroll", function() {
+  if (window.innerWidth <= 768) {
+    const nav = document.querySelector(".nav");
+    if (window.scrollY > 50) {
+      nav.classList.add("shrink");
+    } else {
+      nav.classList.remove("shrink");
+    }
+  }
+});
+</script>
+
+</body>
+</html>
